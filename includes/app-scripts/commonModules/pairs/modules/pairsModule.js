@@ -1,0 +1,1 @@
+var pairsModule = angular.module('pairsModule', []);

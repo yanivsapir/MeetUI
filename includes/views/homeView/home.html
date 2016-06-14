@@ -1,0 +1,22 @@
+<div ng-if="userData.loaded && hm.pairsLoaded && hm.restaurantsLoaded">
+    <image ng-src="includes/images/meet_app_main.jpg" width="400"/>
+    <div class="row">
+        <div class="col-sm-8">
+            <select ng-init="hm.selectedPairs = hm.pairs[0]" ng-model="hm.selectedPairs" ng-change="hm.setCounts()" class="form-control"
+                    ng-options="pair as pair.names[0] + '   |   ' + pair.names[1] for pair in hm.pairs">
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div carousel>
+            <div slide ng-repeat="restaurant in hm.restaurants" active="slide.active">
+                <img ng-src="includes/images/restaurants/{{restaurant.name}}.png">
+                <div class="carousel-caption">
+                    <h4 class="mealsTypeCountRight">{{restaurant.falseCount}}</h4>
+                    <h4 class="mealsTypeCountLeft">{{restaurant.trueCount}}</h4>
+                    <p><span class="restaurantName"><b>{{restaurant.name + "   "}}</b></span>{{restaurant.address}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

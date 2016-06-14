@@ -1,0 +1,1 @@
+var bookOrderModule = angular.module('bookOrderModule', ['pairsModule','restaurantsModule']);

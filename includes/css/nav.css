@@ -1,0 +1,183 @@
+* { margin: 0; padding: 0; }
+
+article, aside, figure, footer, header,
+menu, nav, section { display: block; }
+
+#appHeader{
+    text-align: center;
+}
+
+#appLogo{
+    background: url("../images/nav/logo.png");
+    display: inline-block;
+    width: 131px;
+    height: 59px;
+    position: absolute;
+    right: 47%;
+}
+
+#likedRestaurants{
+    background: url("../images/nav/likedRes.png");
+    display: inline-block;
+    width: 53px;
+    height: 50px;
+    float: right;
+}
+
+.navbar-custom-menu > .navbar-nav > li {
+    position: relative;
+}
+
+a {
+    color: #3c8dbc;
+    text-decoration: none;
+}
+
+.navbar-nav > .user-menu .user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+.navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+    position: absolute;
+    right: 0;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    padding: 1px 0 0 0;
+    border-top-width: 0;
+    width: 280px;
+}
+.navbar-nav > .user-menu > .dropdown-menu,
+.navbar-nav > .user-menu > .dropdown-menu > .user-body {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+    height: 175px;
+    padding: 10px;
+    text-align: center;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
+    z-index: 5;
+    height: 90px;
+    width: 90px;
+    border: 3px solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > p {
+    z-index: 5;
+
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > p > small {
+    display: block;
+    font-size: 12px;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-body {
+    padding: 15px;
+    border-bottom: 1px solid #f4f4f4;
+    border-top: 1px solid #dddddd;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-body:before,
+.navbar-nav > .user-menu > .dropdown-menu > .user-body:after {
+    content: " ";
+    display: table;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-body:after {
+    clear: both;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-body a {
+    color: #444 !important;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer {
+    background-color: #f9f9f9;
+    padding: 10px;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer:before,
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer:after {
+    content: " ";
+    display: table;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer:after {
+    clear: both;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default {
+    color: #666666;
+}
+
+.btn.btn-flat {
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-width: 1px;
+}
+
+.btn-default {
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+}
+
+.btn {
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+
+.mealsTypeCountLeft{
+    font-size: 100px;
+    position: absolute;
+    right: 80%;
+    display: inline-block;
+    border-bottom: 5px solid #27b6ba;
+    bottom: 95%;
+}
+
+.mealsTypeCountRight{
+    font-size: 100px;
+    position: absolute;
+    left: 80%;
+    display: inline-block;
+    border-bottom: 5px solid #e7565d;
+    bottom: 95%;
+}
+
+.restaurantName{
+    font-size: 20px;
+}
+
+.clear{
+    clear: both;
+}
+
+.wrapper{
+    margin: 0 auto;
+    float: none;
+}
+
+.orderPeopleCount{
+    width: 30%;
+}

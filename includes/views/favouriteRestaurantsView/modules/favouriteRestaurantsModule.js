@@ -1,0 +1,1 @@
+var favouriteRestaurantsModule = angular.module('favouriteRestaurantsModule', ['pairsModule','restaurantsModule']);

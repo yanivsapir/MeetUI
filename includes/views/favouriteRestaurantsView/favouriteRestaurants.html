@@ -1,0 +1,9 @@
+<div ng-if="userData.loaded && fr.pairsLoaded && fr.restaurantsLoaded && fr.isUserInfoLoaded">
+    <div ng-repeat="restaurant in fr.restaurants | filter: fr.isFavouriteRestaurant">
+        <h2>{{restaurant.name}}</h2>
+        <h4>{{restaurant.address}}</h4>
+        <a class="btn-lg btn-danger" href="#/bookOrder/{{restaurant.id}}" >Book</a>
+        <br><br>
+        <img ng-src = "includes/images/restaurants/{{restaurant.name}}.png" width="500"/>
+    </div>
+</div>
