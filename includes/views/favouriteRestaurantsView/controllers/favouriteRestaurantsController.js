@@ -1,6 +1,6 @@
 favouriteRestaurantsModule.controller('favouriteRestaurantsController', favouriteRestaurantsController);
 
-function favouriteRestaurantsController(restaurantsService,pairsService,$scope,userInfoService) {
+function favouriteRestaurantsController(restaurantsService,pairsService,$location,userInfoService) {
     var self = this;
     self.pairs = [];
     self.restaurants = [];
@@ -56,6 +56,10 @@ function favouriteRestaurantsController(restaurantsService,pairsService,$scope,u
     self.isFavouriteRestaurant = function(restaurant){
         if(self.isUserInfoLoaded && self.userInfo.likes.indexOf(restaurant.id) != -1)
             return restaurant;
+    };
+
+    self.moveToRes = function (id) {
+        $location.path("/bookOrder/" + id + "/form");
     };
 
     self.loadPairs();

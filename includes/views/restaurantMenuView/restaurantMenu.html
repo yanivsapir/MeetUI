@@ -1,0 +1,41 @@
+<div ng-if="userData.loaded && rm.pairsLoaded && rm.restaurantsLoaded && rm.isUserInfoLoaded" id="menuDiv">
+    <div>
+        <div ng-style="{'background-image':'url(includes/images/restaurants/{{rm.selectedRestaurant.name.replace(' ','')}}.png)'}" class="favRes resHeader">
+            <h2 class="resName">{{rm.selectedRestaurant.name}}</h2>
+            <h4 class="resAddress">{{rm.selectedRestaurant.address}}</h4>
+        </div>
+    </div>
+    <div ng-repeat="(categoryName,meals) in rm.mealsCategories" class="mealCategory">
+        <h2 class="pairHeader"><b>{{categoryName}}</b></h2>
+        <div class="meal" ng-repeat="meal in rm.mealsCategories[categoryName]">
+            <b><span ng-style="rm.isMealTypeTrue(meal) ? rm.mealTypeTrue : rm.mealTypeFalse">
+                    {{rm.isMealTypeTrue(meal) ? rm.preferedPair.names[0][0].toUpperCase() : rm.preferedPair.names[1][0].toUpperCase()}}
+                </span></b>
+            <span class="mealName">{{meal.name}}</span>
+            <i class="fa fa-pencil-square-o fa-2x saveBtn" aria-hidden="true" ng-click="rm.editMeal(meal)"
+               ng-if="userData.role == 'Admin'"></i>
+            <i class="fa fa fa-eye fa-2x saveBtn" aria-hidden="true" ng-click="rm.editMeal(meal)"
+               ng-if="userData.role != 'Admin'"></i>
+        </div>
+    </div>
+    <div class="modal fade" id="editMeal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title modalTitle pairHeader">{{rm.selectedMeal.name}}</h3>
+                </div>
+                <div class="modal-body">
+                    <div ng-repeat="type in rm.selectedMeal.types" class="mealSpec">
+                        <label>{{type.name}} :</label>
+                        <switch ng-model="type.value" on="T" off="F" disabled="userData.role != 'Admin'"></switch>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default closeBtn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success saveBtn" ng-click="rm.saveMeal()" ng-if="userData.role == 'Admin'">Save Meal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

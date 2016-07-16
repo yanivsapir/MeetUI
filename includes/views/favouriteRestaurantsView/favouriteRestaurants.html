@@ -1,9 +1,11 @@
 <div ng-if="userData.loaded && fr.pairsLoaded && fr.restaurantsLoaded && fr.isUserInfoLoaded">
     <div ng-repeat="restaurant in fr.restaurants | filter: fr.isFavouriteRestaurant">
-        <h2>{{restaurant.name}}</h2>
-        <h4>{{restaurant.address}}</h4>
-        <a class="btn-lg btn-danger" href="#/bookOrder/{{restaurant.id}}" >Book</a>
-        <br><br>
-        <img ng-src = "includes/images/restaurants/{{restaurant.name}}.png" width="500"/>
+
+        <div ng-style="{'background-image':'url(includes/images/restaurants/{{restaurant.name.replace(' ','')}}.png)'}" class="favRes">
+            <h2 class="resName">{{restaurant.name}}</h2>
+            <h4 class="resAddress">{{restaurant.address}}</h4>
+            <button class="button button2 red" ng-click="fr.moveToRes(restaurant.id)">BOOK</button>
+        </div>
+        <!--<img ng-src = "includes/images/restaurants/{{restaurant.name}}.png" width="500"/>-->
     </div>
 </div>

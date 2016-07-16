@@ -1,0 +1,33 @@
+<div ng-if="userData.loaded && fc.pairsLoaded && fc.isUserInfoLoaded">
+    <h2 class="pairHeader"><b>Booking:</b></h2>
+    <form class="form-inline" role="form">
+        <div class="formCont">
+            <h3><b>When?</b></h3>
+            <div class="form-group">
+                <label class="bookLabel" for="date">Day:</label>
+                <input class="form-control bookInput" ng-model="fc.date" type="date" id="date"/>
+            </div>
+
+            <br>
+            <h3><b>Who?</b></h3>
+            <div class="form-group">
+                <label class="bookLabel" for="name1">{{fc.preferedPair.names[0]}} :</label>
+                <input class="form-control bookInput bookInputNum trueInput" ng-model="fc.numOfPair1" type="number" id="name1" />
+            </div>
+
+            <div class="form-group">
+                <label class="bookLabel" for="name2">{{fc.preferedPair.names[1]}} :</label>
+                <input class="form-control bookInput bookInputNum falseInput" ng-model="fc.numOfPair2" type="number" id="name2"/>
+            </div>
+        </div>
+    </form>
+
+
+    <h2 class="pairHeader"><b>So, in total:</b></h2>
+    <p id="bookTotalDetails">
+        {{fc.date.getDate() + " " + fc.months[fc.date.getMonth()]}}
+        <br>
+        <span ng-if="fc.numOfPair1 || fc.numOfPair2">{{fc.numOfPair1 + fc.numOfPair2}} guests</span>
+    </p>
+    <button class="button button2 yellow bookBtn" ng-click="fc.bookReservation(bo.restaurantId)">OK!</button>
+</div>

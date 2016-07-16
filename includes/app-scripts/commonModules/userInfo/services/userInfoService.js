@@ -1,6 +1,6 @@
 userInfoModule.service('userInfoService', userInfoService);
 
-function userInfoService($http,$rootScope,GData,$cookies) {
+function userInfoService($http,$cookies) {
     var self = this;
 
     self.getUserInfo = function() {

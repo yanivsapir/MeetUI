@@ -1,6 +1,6 @@
 bookOrderModule.controller('bookOrderController', bookOrderController);
 
-function bookOrderController(restaurantsService,pairsService,$scope,userInfoService,$stateParams, $http) {
+function bookOrderController(restaurantsService,pairsService,userInfoService,$stateParams) {
     var self = this;
     self.pairs = [];
     self.restaurants = [];
@@ -11,9 +11,6 @@ function bookOrderController(restaurantsService,pairsService,$scope,userInfoServ
     self.restaurants = restaurantsService.getRestaurants();
     self.restaurantId = $stateParams.restaurantId;
     self.restaurantToBook = {};
-    self.preferedPair = userInfoService.preferedPair;
-    self.months = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"];
 
     self.loadPairs = function(){
         self.pairsLoaded = false;
@@ -67,19 +64,6 @@ function bookOrderController(restaurantsService,pairsService,$scope,userInfoServ
             return restaurant;
     };
 
-    self.bookReservation = function(){
-        var dateToSend = self.date.getDate() + "." + (self.date.getMonth()+1) + "." + self.date.getFullYear();
-        $http.post('https://meetws.herokuapp.com/saveReservations/' + self.preferedPair.names[0] + '/' + self.numOfPair1 + '/' +
-            self.preferedPair.names[1] + '/' + self.numOfPair2 + '/' + dateToSend + '/' + self.restaurantId).then(
-            function (response) {
-                alert("booked");
-                console.log("booked");
-            },
-            function (errResponse) {
-                console.log(errResponse);
-            }
-        );
-    }
 
     self.loadPairs();
     self.loadRestaurants();

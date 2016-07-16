@@ -10,11 +10,14 @@ var MeetApp = angular.module('MeetApp', [
     'pairsModule',
     'restaurantsModule',
     'bookOrderModule',
-    'userInfoModule'
+    'userInfoModule',
+    'restaurantMenuModule',
+    'ngMessages',
+    'uiSwitch'
 ]);
 
 
-MeetApp.config(function($stateProvider, $urlRouterProvider) {
+MeetApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/login");
 
     $stateProvider
@@ -33,17 +36,38 @@ MeetApp.config(function($stateProvider, $urlRouterProvider) {
             controller : 'bookOrderController as bo',
             templateUrl : 'includes/views/bookOrderView/bookOrder.html'
         })
+        .state('bookOrder.thanks', {
+            url: "/thanks",
+            controller : 'tnxMsgController as tnx',
+            templateUrl : 'includes/views/bookOrderView/subViews/thanksView.html'
+        })
+        .state('bookOrder.form', {
+            url: "/form",
+            controller : 'formController as fc',
+            templateUrl : 'includes/views/bookOrderView/subViews/bookForm.html'
+        })
         .state('login', {
             url: "/login",
             controller : 'loginController as lg',
             templateUrl : 'includes/views/loginView/login.html'
         })
-});
+        .state('restaurantMenu', {
+            url: "/restaurantMenu/{restaurantId}",
+            controller : 'restaurantMenuController as rm',
+            templateUrl : 'includes/views/restaurantMenuView/restaurantMenu.html'
+        })
+
+}]);
 
 MeetApp.run(['GAuth', 'GApi', 'GData', '$state', '$rootScope', '$window', '$cookies', 'loginService', 'logoutService',
-    function(GAuth, GApi, GData, $state, $rootScope, $window, $cookies, loginService, logoutService) {
+    function(GAuth, GApi, GData, $state, $rootScope, $window, $cookies, loginService, logoutService,$location) {
 
         $rootScope.gdata = GData;
+
+        $rootScope.isActive = function (route) {
+            return route === $window.location.hash;
+        }
+
         logoutService.removeUser();
 
         var CLIENT = '798478620041-khfq97vuarnh161t8rdnvdvjbr8mh9bm.apps.googleusercontent.com';

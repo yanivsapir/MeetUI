@@ -1,0 +1,1 @@
+var restaurantMenuModule = angular.module('restaurantMenuModule', []);

@@ -1,20 +1,65 @@
-<div ng-if="userData.loaded && hm.pairsLoaded && hm.restaurantsLoaded">
-    <image ng-src="includes/images/meet_app_main.jpg" width="400"/>
-    <div class="row">
-        <div class="col-sm-8">
-            <select ng-init="hm.selectedPairs = hm.pairs[0]" ng-model="hm.selectedPairs" ng-change="hm.setCounts()" class="form-control"
-                    ng-options="pair as pair.names[0] + '   |   ' + pair.names[1] for pair in hm.pairs">
-            </select>
+<div ng-if="userData.loaded && hm.pairsLoaded && hm.restaurantsLoaded && hm.isUserInfoLoaded">
+    <image ng-src="includes/images/meet_app_main.jpg" id="appLogoImg"/>
+
+    <h3 class="pairHeader">Choose Your Pair</h3>
+    <select ng-model="hm.selectedPairs" ng-change="hm.setCounts()" class="form-control"
+            ng-options="pair as pair.names[0] + '   |   ' + pair.names[1] for pair in hm.pairs"
+            ng-style="userData.role == 'Admin' ? hm.adminSelectStyle : hm.nonAdminSelectStyle">
+    </select>
+    <button ng-if="userData.role == 'Admin'" type="button" class="btn btn-primary btn" data-toggle="modal"
+            ng-click="hm.openModal()">New Pair</button>
+
+    <h3 class="pairHeader">Look what we found for you</h3>
+
+    <div carousel>
+        <div slide ng-repeat="restaurant in hm.restaurants" active="slide.active">
+            <a ng-href="#/restaurantMenu/{{restaurant.id}}">
+                <img ng-src="includes/images/restaurants/{{restaurant.name.replace(' ','')}}.png">
+            </a>
+            <div class="carousel-caption">
+                <h4 class="mealsTypeCountRight">{{restaurant.falseCount}}</h4>
+                <h4 class="mealsTypeCountLeft">{{restaurant.trueCount}}</h4>
+                <p><span class="restaurantName"><b>{{restaurant.name + "   "}}</b></span>{{restaurant.address}}</p>
+                <a class="likeBtn" ng-style="hm.isFavouriteRestaurant(restaurant) ? hm.yellowLike : hm.transparentLike"
+                   ng-click="hm.like(restaurant.id)">Like</a>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div carousel>
-            <div slide ng-repeat="restaurant in hm.restaurants" active="slide.active">
-                <img ng-src="includes/images/restaurants/{{restaurant.name}}.png">
-                <div class="carousel-caption">
-                    <h4 class="mealsTypeCountRight">{{restaurant.falseCount}}</h4>
-                    <h4 class="mealsTypeCountLeft">{{restaurant.trueCount}}</h4>
-                    <p><span class="restaurantName"><b>{{restaurant.name + "   "}}</b></span>{{restaurant.address}}</p>
+
+    <div class="modal fade" id="newPairModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title modalTitle pairHeader">Add New Pair</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group newPairDivInput">
+                        <label>Title :</label>
+                        <input class="form-control newPairInput" name="title" ng-model="hm.newPair.title" type="text" required/>
+                        <div ng-messages="{'required': !hm.newPair.title}">
+                            <div ng-message="required" class="error">This field is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group newPairDivInput">
+                        <label>Description for True :</label>
+                        <input class="form-control newPairInput" ng-model="hm.newPair.names[0]" type="text" required/>
+                        <div ng-messages="{'required': !hm.newPair.names[0]}">
+                            <div ng-message="required" class="error">This field is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group newPairDivInput">
+                        <label>Description for False :</label>
+                        <input class="form-control newPairInput" ng-model="hm.newPair.names[1]" type="text" required/>
+                        <div ng-messages="{'required': !hm.newPair.names[1]}">
+                            <div ng-message="required" class="error">This field is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default closeBtn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success saveBtn" ng-disabled="!hm.newPair.title
+                    || !hm.newPair.names[0] || !hm.newPair.names[1]" ng-click="hm.saveNewPair()">Save</button>
                 </div>
             </div>
         </div>

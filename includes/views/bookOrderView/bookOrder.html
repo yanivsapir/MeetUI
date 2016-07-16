@@ -1,29 +1,10 @@
 <div ng-if="userData.loaded && bo.pairsLoaded && bo.restaurantsLoaded && bo.isUserInfoLoaded">
-    <h2>{{bo.restaurantToBook.name}}</h2>
-    {{self.preferedPair}}
-    <h4>{{bo.restaurantToBook.address}}</h4>
-    <img ng-src = "includes/images/restaurants/{{bo.restaurantToBook.name}}.png"/>
-    <form class="form-inline" role="form">
-        <div class="form-group">
-            <label for="name1">{{bo.preferedPair.names[0]}} :</label>
-            <input class="form-control" style="width: 30%;" ng-model="bo.numOfPair1" type="number" id="name1"/>
+    <div>
+        <div ng-style="{'background-image':'url(includes/images/restaurants/{{bo.restaurantToBook.name.replace(' ','')}}.png)'}" class="favRes resHeader">
+            <h2 class="resName">{{bo.restaurantToBook.name}}</h2>
+            <h4 class="resAddress">{{bo.restaurantToBook.address}}</h4>
         </div>
-        <br>
-        <div class="form-group">
-            <label for="name2">{{bo.preferedPair.names[1]}} :</label>
-            <input class="form-control" style="width: 30%;" ng-model="bo.numOfPair2" type="number" id="name2"/>
-        </div>
-        <div class="form-group">
-            <label for="date">Reservation Date:</label>
-            <input class="form-control" style="width: 70%;" ng-model="bo.date" type="date" id="date"/>
-        </div>
-    </form>
-    <br>
-    <br>
-    <p>
-    {{bo.date.getDate() + " " + bo.months[bo.date.getMonth()]}}
-    <br>
-    {{bo.numOfPair1 + bo.numOfPair2}} guests
-    </p>
-    <button class="btn btn-danger" ng-click="bo.bookReservation()" >Book</button>
+    </div>
+
+    <div ui-view></div>
 </div>

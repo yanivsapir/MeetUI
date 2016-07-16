@@ -5,23 +5,35 @@ menu, nav, section { display: block; }
 
 #appHeader{
     text-align: center;
+    height:59px;
 }
 
-#appLogo{
+.appLogo1{
+    background: url("../images/nav/logo1.png");
+    display: inline-block;
+    width: 319px;
+    height: 115px;
+    position: relative;
+    top: 60px;
+}
+
+.appLogo{
     background: url("../images/nav/logo.png");
     display: inline-block;
     width: 131px;
     height: 59px;
     position: absolute;
-    right: 47%;
+    right: 30%;
 }
 
 #likedRestaurants{
-    background: url("../images/nav/likedRes.png");
+    background: url("../images/nav/likedRes1.png");
     display: inline-block;
-    width: 53px;
-    height: 50px;
+    width: 33px;
+    height: 31px;
     float: right;
+    margin-top: 13px;
+    margin-right: 5%;
 }
 
 .navbar-custom-menu > .navbar-nav > li {
@@ -64,6 +76,7 @@ a {
     height: 175px;
     padding: 10px;
     text-align: center;
+    background: white;
 }
 
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
@@ -180,4 +193,10 @@ a {
 
 .orderPeopleCount{
     width: 30%;
+}
+
+#userNav{
+    display: inline-block;
+    float: left;
+    margin-left: 5%;
 }

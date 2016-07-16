@@ -2,9 +2,59 @@
 <html lang="en" ng-app="MeetApp">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <title>Meet</title>
+
+    <!--CSS-->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="includes/css/nav.css" rel="stylesheet">
+    <link href="bower_components/sweetalert/dist/sweetalert.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="bower_components/angular-ui-switch/angular-ui-switch.min.css" rel="stylesheet">
+    <link href="includes/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <header id="appHeader">
+        <div id="userNav" class="navbar-custom-menu" ng-if="userData.loaded">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img ng-src="{{userData.picture}}" class="user-image" alt="User Image">
+                        <span class="hidden-xs">{{userData.name}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <img ng-src="{{userData.picture}}" class="img-circle" alt="User Image">
+                            <p>
+                                {{userData.name}} - {{userData.role}}
+                                <small>Member since {{[userData.memebranceDate.getDate(),
+                                    userData.memebranceDate.getMonth()+1,
+                                    userData.memebranceDate.getFullYear()].join('/')}}
+                                </small>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a class="btn btn-default btn-flat" ng-click="getUser()">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a class="btn btn-default btn-flat" ng-click="logout()">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <a href="#/home" ng-class="{'appLogo1': isActive('#/login'), 'appLogo': !isActive('#/login'),}"></a>
+        <a href="#/favouriteRestaurants" id="likedRestaurants" ng-if="userData.loaded"></a>
+    </header>
+    <div class="clear"></div>
+    <div class="wrapper">
+        <div ui-view></div>
+    </div>
+
 
     <!--jquery-->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -15,16 +65,14 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-google-gapi/dist/angular-google-gapi.min.js"></script>
+    <script src="bower_components/angular-ui-switch/angular-ui-switch.min.js"></script>
 
-
-    <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />-->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.4.0/ui-bootstrap-tpls.min.js"></script>
-
-    <!--CSS-->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="includes/css/nav.css" rel="stylesheet">
-
+    <!--sweetAlert-->
+    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <!--thirdParty-->
+    <script src="includes/app-scripts/thirdParty/ui-bootstrap-tpls.min.js"></script>
     <!--CommonModules-->
     <script src="includes/app-scripts/angular-configs/app.js"></script>
     <script src="includes/app-scripts/commonModules/pairs/modules/pairsModule.js"></script>
@@ -46,6 +94,8 @@
     <script src="includes/views/bookOrderView/modules/bookOrderModule.js"></script>
     <!--controllers-->
     <script src="includes/views/bookOrderView/controllers/bookOrderController.js"></script>
+    <script src="includes/views/bookOrderView/controllers/formController.js"></script>
+    <script src="includes/views/bookOrderView/controllers/tnxMsgController.js"></script>
     <!--/bookOrderView-->
     <!--favouriteRestaurantsView-->
     <!--module-->
@@ -62,62 +112,12 @@
     <script src="includes/views/loginView/services/loginService.js"></script>
     <script src="includes/views/loginView/services/logoutService.js"></script>
     <!--/loginView-->
+    <!--restaurantMenuView-->
+    <!--module-->
+    <script src="includes/views/restaurantMenuView/modules/restaurantMenuModule.js"></script>
+    <!--controllers-->
+    <script src="includes/views/restaurantMenuView/controllers/restaurantMenuController.js"></script>
+    <!--/restaurantMenuView-->
     <!--/views-->
-</head>
-<body>
-    <header id="appHeader">
-        <div style="display: inline-block; float: left;" class="navbar-custom-menu" ng-if="userData.loaded">
-            <ul class="nav navbar-nav">
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img ng-src="{{userData.picture}}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">{{userData.name}}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="user-header">
-                            <img ng-src="{{userData.picture}}" class="img-circle" alt="User Image">
-                            <p>
-                                {{userData.name}} - {{userData.role}}
-                                <small>Member since {{[userData.memebranceDate.getDate(),
-                                    userData.memebranceDate.getMonth()+1,
-                                    userData.memebranceDate.getFullYear()].join('/')}}
-                                </small>
-                            </p>
-                        </li>
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a class="btn btn-default btn-flat" ng-click="getUser()">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-default btn-flat" ng-click="logout()">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
-            </ul>
-        </div>
-        <a href="#/home" id="appLogo"></a>
-        <a href="#/favouriteRestaurants" id="likedRestaurants" ng-if="userData.loaded"></a>
-    </header>
-    <div class="clear"></div>
-    <div class="col-sm-3 wrapper">
-        <div ui-view></div>
-    </div>
 </body>
 </html>
